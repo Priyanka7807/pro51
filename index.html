@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://127.0.0.1:5501/card.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style> 
+   body{
+        height: 100vh;
+        width: 100vw;
+        background: #11998e;  
+        background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+        background: linear-gradient(to right, #38ef7d, #11998e); 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .container
+    {
+        height: 400px;
+        width: 500px;
+        background-color: white;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 20px 20px 40px rgba(97,63,0,0.4);
+    }
+    .top
+    {
+        display: flex;
+        gap: 20px;
+        padding: 40px;
+        padding-bottom: 0 !important;
+    }
+   .input-box input
+    {   
+    border: none;
+    border-bottom:2px solid black;
+    padding-bottom:10px;
+    outline: none;
+    }
+    .block-1
+    {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button
+    {
+        border: none;
+        padding: 7px 25px;
+        background-color: orange;
+        border-radius: 10px;
+        
+    }
+    .content
+    {
+        padding: 40px;
+    }
+    .sample
+    {
+        font-weight: bolder;
+        font-size: 24px;
+
+    }
+    .latin
+    {
+        font-style: italic;
+        color: gray;
+    }
+    .meaning
+    {
+        color: rgb(75, 73, 73);
+    }
+    .meaning2
+    {
+        margin-top: 20px;
+        padding-left: 10px;
+        border-left: 4px solid orange ;
+        color: rgb(75, 73, 73);
+        font-style: italic;
+    }
+</style><style type="text/css" id="operaUserStyle"></style></head>
+
+<body>
+   <div class="container">
+       <div class="top">
+        <div class="input-box">
+  <input type="text" placeholder="Enter text" class="input">
+  </div>
+  <div class="button">
+<button class="bt" onclick="abc()">
+  Search
+ </button>
+           </div>
+       </div>
+       <div class="content">
+       <div class="block-1">
+        <div class="part">
+            <div class="sample">
+                sample
+             </div>
+             <div class="latin">
+                pos/sample/
+             </div>
+        </div>
+        <div>
+            <audio controls="" src="">a</audio>
+        </div>
+       </div>
+       <div class="block-2">
+        <div class="meaning">
+           </div>
+           <div class="meaning2">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi nemo pariatur dolores doloremque reiciendis corrupti adipisci earum saepe totam veniam.
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi nemo pariatur dolores doloremque reiciendis corrupti adipisci earum saepe totam veniam.
+  </div>
+       </div>
+       </div>
+   </div>
+  <!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+  <script>
+    async function abc()
+    {
+        input=document.querySelector('input').value
+        const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+        console.log(input)
+      
+       
+            let data=await fetch(`${url}${input}`)
+            let data2= await data.json()
+            console.log(data2)
+            let abc=` <div class="content">
+       <div class="block-1">
+        <div class="part">
+            <div class="sample">
+                ${data2[0].word}
+             </div>
+             <div class="latin">
+                ${data2[0].phonetic[0]}
+             </div>
+        </div>
+        <div>
+            <audio controls src="${data2[0].phonetics[0].audio}">a</audio>
+        </div>
+       </div>
+       <div class="block-2">
+        <div class="meaning">
+            ${data2[0].meanings[0].definitions[0].definition}
+           </div>
+           <div class="meaning2">
+        <div>
+            synonyms is ${data2[0].meanings[0].synonyms[0]}
+            </div>
+            <div>
+                antonyms is ${data2[0].meanings[0].antonyms[0]}
+                 </div>
+                 <div>
+                    part of speech is ${data2[0].meanings[0].partOfSpeech}
+       </div>`
+       document.querySelector(".content").innerHTML=abc;
+    }    
+    </script>
+</body></html>
